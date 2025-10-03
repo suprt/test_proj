@@ -9,7 +9,7 @@ gRPC сервис хранения изображений с потоковой 
 
 ## Быстрый старт
 
-### Docker (рекомендуется)
+### Docker
 ```bash
 # Сборка и запуск
 make docker-build
@@ -52,8 +52,4 @@ make client-download
 - `make docker-logs` — логи сервисов
 - `make docker-shell` — shell в контейнере сервера
 - `docker compose exec client sh` — shell в контейнере клиента
-
-## Требования
-- **Docker:** Engine 20.10+, Compose v2
-- **Локально:** Go 1.24.6+, protoc 3.21+
 
