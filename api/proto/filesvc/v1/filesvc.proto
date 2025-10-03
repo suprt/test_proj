@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package filesvc.v1;
+
+option go_package = "github.com/suprt/test_proj/api/gen/filesvc/v1;filesvcv1";
+
+message UploadChunk {
+  string filename = 1;
+  bytes data = 2;
+}
+
+message UploadResponse {
+  string filename = 1;
+  int64 size_bytes = 2;
+}
+
+message DownloadRequest {
+  string filename = 1;
+}
+
+message DownloadChunk {
+  bytes data = 1;
+}
+
+message ListFilesRequest {}
+
+message FileInfo {
+  string filename = 1;
+  string created_at = 2;
+  string updated_at = 3;
+}
+
+message ListFilesResponse {
+  repeated FileInfo files = 1;
+}
+
+service FileService {
+  rpc Upload(stream UploadChunk) returns (UploadResponse);
+  rpc Download(DownloadRequest) returns (stream DownloadChunk);
+  rpc ListFiles(ListFilesRequest) returns (ListFilesResponse);
+}
+
+
