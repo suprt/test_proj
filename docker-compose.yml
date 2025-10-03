@@ -1,0 +1,26 @@
+services:
+  filesvc:
+    build:
+      context: .
+      target: server
+    ports:
+      - "50051:50051"
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "50051"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  client:
+    build:
+      context: .
+      target: client
+    depends_on:
+      - filesvc
+    command: sleep infinity
+    # Client container runs in background, use:
+    #   docker compose exec client ./client -addr filesvc:50051 -cmd list
